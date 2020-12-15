@@ -1,90 +1,66 @@
-body {
-  width: 95%;
-  margin: auto;
+/* quiz section */
+.quiz {
+	width: 97vw;
+	margin: 2vw;
 }
 
-header {
-  background-color: rgb(226, 224, 224);
-  padding: 10px;
+.quiz-submit {
+	background-color: #1d3552;
+	border-radius: 1rem;
+	border-style: none;
+	border: none;
+	padding: 5px 20px;
+	color: white;
+	font-size: 1rem;
 }
 
-.welcome h1 {
-  text-align: center;
-  width: 10%;
-  min-width: 80px;
+/* .qstn-wrapper section */
+.qstn-wrapper {
+	width: 98%;
+	height: fit-content;
+	min-width: 280px;
+	max-width: 768px;
+	padding: 0.1rem;
+	margin-top: 0.1rem;
 }
 
-ul {
-  padding: 0px;
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+.qstn {
+	font-size: 1.25rem;
+	padding: 0.2rem;
+	text-align: justify;
 }
 
-.header {
-  margin: 0px auto;
+.qstn-wrapper form {
+	margin: 5px 0px;
+	display: flex;
+	flex-direction: column;
 }
 
-li {
-  padding: 5px;
-  width: 10%;
-  min-width: 80px;
-  border: 1px solid rgb(178, 121, 231);
-  margin: 5px;
-  border-radius: 5px;
-  text-align: center;
-  background-color: rgb(64, 64, 241);
-}
-li a {
-  text-decoration: none;
-  color: whitesmoke;
-
+.qstn-wrapper button {
+	background-color: #0378f5;
+	border-radius: 1rem;
+	border-style: none;
+	border: none;
+	padding: 5px 20px;
+	color: white;
+	font-size: 1.25rem;
 }
 
-/* #signin-link,
-#signup-link,
-#signin-link a,
-#signup-link a {
-  background-color: rgb(64, 64, 241);
-  color: white;
-} */
-
-li:hover{
-  background-color: rgb(99, 17, 167);
+/*Choice section*/
+.choice {
+	border: 0.1px solid rgba(105, 90, 205, 0.26);
+	border-radius: 20px;
+	padding: 2px;
+	margin: 1px 0px;
+	max-width: 768px;
 }
 
-.box-wrapper {
-  position: fixed;
-  top: 25%;
-  left: 22%;
-  width: 50%;
-  min-width: 300px;
-
-  height: 60vh;
-  display: flex;
-  /* border: 1px solid black; */
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  background-color: rgb(236, 236, 236);
-  border-radius: 10px;
-  box-shadow: 0 0 0 2px rgb(255, 255, 255),
-    0.5em 0.5em 1em 0px rgb(0 0 0 / 30%);
-}
-.box-wrapper input {
-  margin: 5px;
-  padding: 10px;
-  width: 40%;
+.choice label {
+	width: 100px;
+	display: inline-block;
+	width: 90%;
 }
 
-.box-wrapper button {
-  color: white;
-  width: 15%;
-  min-width: 65px;
-  margin: 5px;
-  padding: 10px;
-  background-color: rgb(64, 64, 241);
-  border: none;
+.choice:hover {
+	background-color: rgb(177, 175, 174);
 }

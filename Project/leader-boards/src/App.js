@@ -1,28 +1,8 @@
-import { Welcome } from './pages/Welcome'
-import { SignIn } from './pages/SignIn'
-import { SignUp } from './pages/SignUp'
-import { Header } from './pages/Header'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import './App.css'
+import "./App.css";
+import Quiz from "./pages/components/Quiz";
 
 function App() {
-  return (
-    <Router>
-      <Header />
-      
-      <Switch>
-        <Route path="/signin">
-          <SignIn />
-        </Route>
-        <Route path="/signup">
-          <SignUp />
-        </Route>
-        <Route path="/">
-          <Welcome />
-        </Route>
-      </Switch>
-    </Router>
-  );
+	return <Quiz />;
 }
 
 export default App;
