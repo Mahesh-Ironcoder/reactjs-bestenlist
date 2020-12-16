@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Question from "./Question";
-import { qtns } from "./questions";
+import { useParams} from 'react-router-dom'
 
 function Quiz(props) {
 	const [answer, setAnswer] = useState({});
@@ -8,14 +8,14 @@ function Quiz(props) {
 
 	const handleAnswer = (qid, ans) => {
 		setAnswer({ ...answer, [qid]: ans });
-		if (currqtn + 1 < qtns.length) setCurrqtn(currqtn + 1);
+		if (currqtn + 1 < props.qtns.length) setCurrqtn(currqtn + 1);
 	};
 
 	const handleSubmit = () => {
 		console.log("Quiz submitted", answer);
 	};
 
-	const qtcomp = qtns.map((qtn, id) => {
+	const qtcomp = props.qtns.map((qtn, id) => {
 		return (
 			<Question
 				key={id}
@@ -26,10 +26,13 @@ function Quiz(props) {
 			/>
 		);
 	});
-
+	const { quizid } = useParams();
+	console.log(Date())
 	return (
 		<div className='quiz'>
-			{currqtn + 1 === qtns.length && (
+			<h1>{quizid}</h1>
+			<h3>Question {(currqtn+1)+"/"+props.qtns.length}</h3>
+			{currqtn + 1 === props.qtns.length && (
 				<button className="quiz-submit"onClick={handleSubmit}>Submit</button>
 			)}
 			{qtcomp[currqtn]}

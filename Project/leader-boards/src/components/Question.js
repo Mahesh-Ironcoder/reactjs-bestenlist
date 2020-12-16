@@ -24,10 +24,6 @@ function Question(props) {
 								name={"ans" + props.qid}
 								value={ch}
 								id={props.qid + "" + id}
-								onSelect={(e) => {
-									console.log("option seelected");
-									console.log(e.target.id);
-								}}
 							/>
 							<label htmlFor={props.qid + "" + id}>{ch}</label>
 						</section>

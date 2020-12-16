@@ -14,6 +14,9 @@
 	font-size: 1rem;
 }
 
+.quiz h3 {
+	color: #1d3552;
+}
 /* .qstn-wrapper section */
 .qstn-wrapper {
 	width: 98%;
@@ -63,4 +66,32 @@
 
 .choice:hover {
 	background-color: rgb(177, 175, 174);
+}
+
+/* user dashboard */
+.user-dashboard {
+	width: 60%;
+	position: relative;
+	top: 10vh;
+	left: 20vw;
+	display: flex;
+	flex-direction: column;
+}
+
+.quiz-card {
+	width: 98%;
+	margin: 1rem auto;
+	background-color: lightgray;
+	border-radius: 8px;
+	padding: 0.5rem;
+}
+
+.card-button{
+	background-color: #0378f5;
+	border-radius: 8px;
+	border-style: none;
+	border: none;
+	padding: 5px 20px;
+	color: white;
+	/* font-size: 1rem; */
 }
