@@ -2,6 +2,7 @@ import "./App.css";
 
 import UserDashboard from "./components/UserDashboard";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Header from "./components/Header";
 
 function PublicPage(props) {
 	return <h1> Hi this is a Public home page</h1>;
@@ -10,6 +11,7 @@ function PublicPage(props) {
 function App() {
 	return (
 		<Router>
+			<Header />
 			<Switch>
 				<Route path='/user'>
 					<UserDashboard />
