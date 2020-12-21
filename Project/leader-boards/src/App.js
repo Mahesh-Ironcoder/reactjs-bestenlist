@@ -5,6 +5,8 @@ import "./App.css";
 import Header from "./components/Header";
 import DashBoard from "./components/DashBoard";
 
+// import {useAuth} f
+
 // function PublicPage(props) {
 // 	return <h1> Hi this is a Public home page</h1>;
 // }
