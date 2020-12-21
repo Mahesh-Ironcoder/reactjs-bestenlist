@@ -17,7 +17,8 @@
 .quiz h3 {
 	color: #1d3552;
 }
-/* .qstn-wrapper section */
+
+/* .Question Display section */
 .qstn-wrapper {
 	width: 98%;
 	height: fit-content;
@@ -40,7 +41,7 @@
 }
 
 .qstn-wrapper button {
-	background-color: #0378f5;
+	background-color: #543d56;
 	border-radius: 1rem;
 	border-style: none;
 	border: none;
@@ -68,8 +69,8 @@
 	background-color: rgb(177, 175, 174);
 }
 
-/* user dashboard */
-.user-dashboard {
+/* dashboard section */
+.dashboard {
 	width: 60%;
 	position: relative;
 	top: 10vh;
@@ -86,6 +87,7 @@
 	padding: 0.5rem;
 }
 
+/* Heading Section of the page */
 .app-header {
 	padding: 0.5rem;
 	display: flex;
@@ -112,10 +114,89 @@
 }
 a {
 	text-decoration: none;
-	background-color: #0378f5;
+	background-color: #543d56;
 	border-radius: 8px;
 	border-style: none;
 	border: none;
 	padding: 5px 20px;
 	color: white;
+}
+
+/* quiz creating section */
+.create-quiz {
+	width: 60%;
+	position: relative;
+	top: 10vh;
+	left: 20vw;
+	display: flex;
+	flex-direction: column;
+	background-color: #89817e;
+	padding: 0.5rem;
+}
+
+.create-quiz input {
+	border: none;
+	margin: 0.5rem, 0rem;
+}
+
+.create-quiz > input {
+	border: 0.5px solid black;
+	font-size: larger;
+	background-color: lightgray;
+}
+
+.add-quiz-btn {
+	width: 2rem;
+	height: 2rem;
+	border-radius: 1.5rem;
+	display: inline-block;
+	padding: 0.5rem;
+	font-size: 2rem;
+}
+
+.add-choice {
+	align-self: flex-start;
+	border-radius: 50px 50px;
+	margin: 0.2rem 0.5rem;
+}
+
+.ch-container {
+	display: flex;
+	flex-direction: column;
+	margin-top: 0.5rem;
+}
+.ch-container input {
+	margin: 0.5rem 0.5rem;
+	background-color: rgb(255, 255, 255, 0.5);
+	font-size: 1.25rem;
+	width: 90%;
+}
+
+.option {
+	height: 0.5rem;
+	width: 0.51rem;
+	background-color: rgb(255, 255, 255, 0.5);
+	border-radius: 50%;
+	border: 1px solid black;
+	display: inline-block;
+	margin: auto 1px;
+}
+
+.qtnoption::before {
+	content: "";
+	height: 0.5rem;
+	width: 0.51rem;
+	background-color: rgb(255, 255, 255, 0.5);
+	border-radius: 50%;
+	border: 1px solid black;
+	display: inline-block;
+	margin: auto 1px;
+}
+
+.add-question-btn {
+	align-self: flex-start;
+	border-radius: 0.5rem;
+	background-color: #543d56;
+	color: white;
+	margin: 0.5rem 0rem;
 }

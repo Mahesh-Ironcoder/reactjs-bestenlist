@@ -1,4 +1,4 @@
-export const quizes = [
+const quizes = [
 	{
 		quizid: 1608139744278,
 		title: "Some Floppy title",
@@ -35,3 +35,5 @@ export const quizes = [
 		response: {},
 	}
 ];
+
+export default quizes
