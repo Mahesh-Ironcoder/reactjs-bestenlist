@@ -1,10 +1,23 @@
 import React from "react";
 
-function DashBoard(props) {
+function PublicPage() {
 	return (
 		<div>
-			<h2>Welcome {props.name}</h2>
+			<h1>Welcome to leader boar website.</h1>
+			<h3>Please login to see your quizes</h3>
 		</div>
+	);
+}
+
+function DashBoard(props) {
+	return (
+		<section className='dashboard'>
+			{props.authContext.isAuthenticated ? (
+				<pre>{JSON.stringify(props.authContext.user, null, 2)}</pre>
+			) : (
+				<PublicPage />
+			)}
+		</section>
 	);
 }
 
