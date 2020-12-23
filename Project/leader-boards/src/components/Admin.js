@@ -1,5 +1,5 @@
 import React from "react";
-import UserDashboard from "./UserDashboard";
+import Quizes from "./Quizes";
 import { Link } from "react-router-dom";
 
 function Admin(props) {
@@ -9,7 +9,7 @@ function Admin(props) {
 			<Link to="/create-quiz" className='add-quiz-btn'>
 				+
 			</Link>
-			<UserDashboard quizes={props.quizes} />
+			<Quizes quizes={props.quizes} />
 		</div>
 	);
 }

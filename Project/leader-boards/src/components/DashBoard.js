@@ -14,10 +14,8 @@ function PublicPage() {
 
 function DashBoard(props) {
 	const { isAuthenticated, getAccessTokenSilently, user } = props.authContext;
-	// console.log("user: ", user);
 	const [quizes, setQuizes] = useState([]);
 	const [role, setRole] = useState("");
-	// const { name = "Guest", picture = null } = !isAuthenticated ? {} : user;
 	useEffect(() => {
 		console.log("use effect effecting now!");
 		const callapi = async () => {
@@ -32,10 +30,6 @@ function DashBoard(props) {
 						"content-type": "application/json",
 						Authorization: `Bearer ${token}`,
 					},
-					// body: JSON.stringify({
-					// 	demo: "HI",
-					// }),
-					// method: "POST",
 				});
 
 				const responseData = await response.json();
@@ -49,26 +43,7 @@ function DashBoard(props) {
 		};
 		callapi();
 	}, [user]);
-	console.log(quizes, "\n", role);
 	return (
-		// <section className='dashboard'>
-		// 	{isAuthenticated ? (
-		// 		// isAdmin && (
-		// 		<>
-		// 			<img src={picture} alt='userpicture' />
-		// 			<h1>Welcome {name}</h1>
-		// 			<pre>{JSON.stringify(props.authContext.user, null, 2)}</pre>
-		// 			<button onClick={callapi}>Call API</button>
-		// 			{message}
-		// 		</>
-		// 	) : (
-		// 		<>
-		// 			<PublicPage />
-		// 			<button onClick={callapi}>Call API</button>
-		// 			{message}
-		// 		</>
-		// 	)}
-		// </section>
 		<section className='dashboard'>
 			{isAuthenticated ? (
 				role === "admin" ? (
