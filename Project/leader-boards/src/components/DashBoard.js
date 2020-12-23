@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AppContext } from "../App";
 
 import Admin from "./Admin";
 import User from "./User";
@@ -12,8 +13,12 @@ function PublicPage() {
 	);
 }
 
+export const QuizContext = React.createContext();
+
 function DashBoard(props) {
-	const { isAuthenticated, getAccessTokenSilently, user } = props.authContext;
+	const { isAuthenticated, getAccessTokenSilently, user } = useContext(
+		AppContext
+	);
 	const [quizes, setQuizes] = useState([]);
 	const [role, setRole] = useState("");
 	useEffect(() => {
@@ -45,15 +50,17 @@ function DashBoard(props) {
 	}, [user]);
 	return (
 		<section className='dashboard'>
-			{isAuthenticated ? (
-				role === "admin" ? (
-					<Admin quizes={quizes} />
+			<QuizContext.Provider value={quizes}>
+				{isAuthenticated ? (
+					role === "admin" ? (
+						<Admin quizes={quizes} />
+					) : (
+						<User quizes={quizes} />
+					)
 				) : (
-					<User quizes={quizes} />
-				)
-			) : (
-				<PublicPage />
-			)}
+					<PublicPage />
+				)}
+			</QuizContext.Provider>
 		</section>
 	);
 }
