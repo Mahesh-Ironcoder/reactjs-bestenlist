@@ -1,5 +1,5 @@
 import React from "react";
-import { quizes } from "./quizes";
+// import { quizes } from "./quizes";
 import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
 import Quiz from "./Quiz";
 import { qtns } from "./questions";
@@ -18,9 +18,9 @@ function QuizCard(props) {
 		</section>
 	);
 }
-function UserDashboard() {
+function UserDashboard(props) {
 	const { path, url } = useRouteMatch();
-
+	const { quizes } = props;
 	return (
 		<>
 			<Switch>
@@ -29,8 +29,8 @@ function UserDashboard() {
 				</Route>
 				<Route path={path}>
 					<div className='user-dashboard'>
-						{quizes.map((quz) => {
-							return <QuizCard key={quz.quizid} quiz={quz} curURL={url} />;
+						{quizes.map((quz, id) => {
+							return <QuizCard key={id} quiz={quz} curURL={url} />;
 						})}
 					</div>
 				</Route>
