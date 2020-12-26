@@ -7,13 +7,11 @@ import { BrowserRouter } from "react-router-dom";
 import Auth0ProviderWithHistory from "./auth/Auth0ProviderWithHistory";
 
 ReactDOM.render(
-	<React.StrictMode>
-		<BrowserRouter>
-			<Auth0ProviderWithHistory>
-				<App />
-			</Auth0ProviderWithHistory>
-		</BrowserRouter>
-	</React.StrictMode>,
+	<BrowserRouter>
+		<Auth0ProviderWithHistory>
+			<App />
+		</Auth0ProviderWithHistory>
+	</BrowserRouter>,
 	document.getElementById("root")
 );
 

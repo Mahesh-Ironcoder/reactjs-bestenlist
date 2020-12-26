@@ -2,13 +2,15 @@ import React, { useState } from "react";
 
 function AddQuestion(props) {
 	// creating states
+	const { questionId } = props;
 	const [question, setQuestion] = useState("");
 	const [choices, setChoices] = useState([""]);
 
 	// handler functions
 	var handleChoiceValue = (e) => {
 		var tempstate = choices.slice();
-		tempstate[e.target.id] = e.target.value;
+
+		tempstate[e.target.id.split("_ch_")[1]] = e.target.value;
 		setChoices(tempstate);
 	};
 	var handleQuestionValue = (e) => {
@@ -19,14 +21,12 @@ function AddQuestion(props) {
 
 	var handleAddQuestion = (e) => {
 		let dropdownValue = parseInt(
-			document.getElementsByName("correctAnswer").value
+			document.getElementById(`${questionId}_ans`).value
 		);
-		props.addQuestion([
-			...props.quizQuestion,
-			{ question: question, choices: choices, correctAnswer: dropdownValue },
-		]);
-		setQuestion("");
-		setChoices([""]);
+		props.addQuestion({
+			type: "addQuestion",
+			payload: { id:questionId, question, choices, correctAnswer: dropdownValue },
+		});
 	};
 	console.log(choices.length);
 	// returning the component
@@ -46,7 +46,7 @@ function AddQuestion(props) {
 					return (
 						<input
 							key={id}
-							id={id}
+							id={props.questionId + "_ch_" + id}
 							type='text'
 							value={ch}
 							onChange={handleChoiceValue}
@@ -66,17 +66,19 @@ function AddQuestion(props) {
 				>
 					Add Choice
 				</button>
-				{choices.length > 1 && (
-					<select className='crrct-ans' name='correctAnswer'>
-						{choices.map((ch, id) => {
-							return (
-								<option key={id} value='id'>
-									{ch}
-								</option>
-							);
-						})}
-					</select>
-				)}
+				<select
+					className='crrct-ans'
+					name='correctAnswer'
+					id={`${questionId}_ans`}
+				>
+					{choices.map((ch, id) => {
+						return (
+							<option key={id} value={id}>
+								{ch}
+							</option>
+						);
+					})}
+				</select>
 			</section>
 		</div>
 	);

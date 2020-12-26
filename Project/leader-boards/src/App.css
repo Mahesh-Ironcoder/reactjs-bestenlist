@@ -170,6 +170,10 @@ nav > img {
 	font-size: 1rem;
 }
 
+.question-container {
+	margin: 1rem 0px;
+}
+
 .quiz h3 {
 	color: #1d3552;
 }
