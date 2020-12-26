@@ -19,7 +19,7 @@ const Auth0ProviderWithHistory = ({ children }) => {
 			redirectUri={window.location.origin}
 			onRedirectCallback={onRedirectCallback}
 			audience='https://mydemoAPI/sample/'
-			// scope='read:demo'
+			permissions='read:users'
 		>
 			{children}
 		</Auth0Provider>

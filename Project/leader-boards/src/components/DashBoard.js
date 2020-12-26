@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { AppContext } from "../App";
 
 import Admin from "./Admin";
+import Loading from "./Loading";
 import User from "./User";
 
 function PublicPage() {
@@ -16,20 +17,24 @@ function PublicPage() {
 export const QuizContext = React.createContext();
 
 function DashBoard(props) {
-	const { isAuthenticated, getAccessTokenSilently, user } = useContext(
-		AppContext
-	);
+	const { authContext } = useContext(AppContext);
+	const {
+		isAuthenticated,
+		getAccessTokenSilently,
+		user,
+		// isLoading,
+	} = authContext;
 	const [quizes, setQuizes] = useState([]);
 	const [role, setRole] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
+
 	useEffect(() => {
-		console.log("use effect effecting now!");
 		const callapi = async () => {
+			setIsLoading(true);
 			try {
 				const token = await getAccessTokenSilently({
 					scope: "read:demo",
 				});
-				console.log(token);
-
 				const response = await fetch(`http://localhost:3010/api/get-quizes`, {
 					headers: {
 						"content-type": "application/json",
@@ -38,19 +43,25 @@ function DashBoard(props) {
 				});
 
 				const responseData = await response.json();
-				console.log(responseData.quizes);
+				console.log(responseData);
 				setQuizes(responseData.quizes);
 				setRole(responseData.role);
+				setIsLoading(false);
 			} catch (error) {
-				console.log(error);
+				console.log("Error from get quizes api: ", error);
 				setQuizes(error.message);
+				setIsLoading(false);
 			}
 		};
 		callapi();
-	}, [user]);
+	}, [user, getAccessTokenSilently, setIsLoading]);
+
+	if (isLoading) {
+		return <Loading/>
+	}
 	return (
 		<section className='dashboard'>
-			<QuizContext.Provider value={quizes}>
+			<QuizContext.Provider value={{ quizes, role }}>
 				{isAuthenticated ? (
 					role === "admin" ? (
 						<Admin quizes={quizes} />

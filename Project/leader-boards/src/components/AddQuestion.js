@@ -18,14 +18,17 @@ function AddQuestion(props) {
 	};
 
 	var handleAddQuestion = (e) => {
+		let dropdownValue = parseInt(
+			document.getElementsByName("correctAnswer").value
+		);
 		props.addQuestion([
 			...props.quizQuestion,
-			{ question: question, choices: choices },
+			{ question: question, choices: choices, correctAnswer: dropdownValue },
 		]);
 		setQuestion("");
 		setChoices([""]);
 	};
-
+	console.log(choices.length);
 	// returning the component
 	return (
 		<div className='create-quiz'>
@@ -63,6 +66,17 @@ function AddQuestion(props) {
 				>
 					Add Choice
 				</button>
+				{choices.length > 1 && (
+					<select className='crrct-ans' name='correctAnswer'>
+						{choices.map((ch, id) => {
+							return (
+								<option key={id} value='id'>
+									{ch}
+								</option>
+							);
+						})}
+					</select>
+				)}
 			</section>
 		</div>
 	);

@@ -1,27 +1,40 @@
 import React, { useContext, useState } from "react";
-import { Redirect, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { AppContext } from "../App";
 import { QuizContext } from "./DashBoard";
 
 import Question from "./Question";
 
 function Quiz(props) {
-	const [answer, setAnswer] = useState({});
+	const [answer, setAnswer] = useState([]);
 	const [currqtn, setCurrqtn] = useState(0);
-	const { getAccessTokenSilently } = useContext(AppContext);
-	const handleAnswer = (qid, ans) => {
-		setAnswer({ ...answer, [qid]: ans });
+	const { authContext } = useContext(AppContext);
+	const { getAccessTokenSilently, user } = authContext;
+	const history = useHistory();
+	const handleAnswer = (ans, score) => {
+		setAnswer([...answer, { ans: ans, qtnScore: score }]);
 		if (currqtn + 1 < qtns.length) setCurrqtn(currqtn + 1);
 	};
-
+	console.log("answer", answer);
 	const handleSubmit = async () => {
 		console.log("Quiz submitted", answer);
+		let score = 0;
+		for (let i = 0; i < answer.length; i++) {
+			score += answer[i].qtnScore;
+		}
+		console.log("score", score);
 		let userResp = {
 			quizid: quzid,
+			userName: user.name,
 			userResponse: answer,
+			score: score,
 		};
+		console.log(userResp);
 		try {
-			const token = await getAccessTokenSilently();
+			const token = await getAccessTokenSilently({
+				permissions: "read:user",
+			});
+			console.log(token);
 			let resp = await fetch("http://localhost:3010/api/add-quiz-response", {
 				headers: {
 					"content-type": "application/json",
@@ -30,39 +43,27 @@ function Quiz(props) {
 				body: JSON.stringify(userResp),
 				method: ["POST"],
 			});
-			console.log(resp);
-			<Redirect
-				to={{
-					pathname: "/dashboard",
-					state: { from: window.location.pathname },
-				}}
-			/>;
+			let respData = await resp.json();
+			console.log("add quiz resp: ", respData);
+			history.push("/dashboard");
 		} catch (e) {
-			console.log(e);
+			console.log("error from add quiz resp api: ", e);
 		}
 	};
 
 	let { quzid } = useParams();
-	const quizes = useContext(QuizContext);
+	const { quizes } = useContext(QuizContext);
 	let qtns = [];
+	// const qtns = quizes.filter((quz) => quz.quizid === quzid);
 	for (let i = 0; i < quizes.length; i++) {
 		if (quizes[i].quizid === parseInt(quzid)) {
 			qtns = quizes[i].questions;
 		}
 	}
-	// const qtns = quizes.filter((quz) => quz.quizid === quzid);
 	console.log(qtns);
 
 	const qtcomp = qtns.map((qtn, id) => {
-		return (
-			<Question
-				key={id}
-				qid={id}
-				question={qtn.question}
-				choices={qtn.choices}
-				onAnswered={handleAnswer}
-			/>
-		);
+		return <Question key={id} qid={id} qtn={qtn} onAnswered={handleAnswer} />;
 	});
 	console.log(Date());
 	return (

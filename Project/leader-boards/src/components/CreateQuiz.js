@@ -1,16 +1,27 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
 import AddQuestion from "./AddQuestion";
 // import quizes from "./quizes";
 
 import { useAuth0 } from "@auth0/auth0-react";
+import { QuizContext } from "./DashBoard";
 
-const initialState = [];
+
 
 function CreateQuiz() {
+	let initialState = [];
+	let initialtitle = "";
+	let id = useParams()
+	const { quizes } = useContext(QuizContext);
+	quizes.forEach(element => {
+		if (element.quizid === parseInt(id)) {
+			initialState = element.questions
+			initialtitle = element.title
+		}
+	});
 	const [quizQuestions, setQuizQuestions] = useState(initialState);
 	const [isFinished, setIsFinished] = useState(false);
-	const [title, setTitle] = useState("");
+	const [title, setTitle] = useState(initialtitle);
 	const history = useHistory();
 
 	const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
@@ -29,10 +40,11 @@ function CreateQuiz() {
 					body: JSON.stringify(obj),
 					method: ["POST"],
 				});
+				let respData = await resp.json();
+				console.log("Create quiz response: ", respData);
 			} catch (e) {
-				console.log(e);
+				console.log("error from create quiz api: ", e);
 			}
-			console.log("Create quiz response: ", resp);
 		}
 	};
 	console.log(quizQuestions);

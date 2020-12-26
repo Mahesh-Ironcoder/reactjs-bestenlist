@@ -8,7 +8,7 @@ import Quiz from "./Quiz";
 function User(props) {
 	const { path, url } = useRouteMatch();
 	return (
-		<div>
+		<>
 			Welcome user you can see all the quizes alloted to you in here
 			<Switch>
 				<Route path={`${path}/:quzid`}>
@@ -18,7 +18,7 @@ function User(props) {
 					<Quizes url={url} />
 				</Route>
 			</Switch>
-		</div>
+		</>
 	);
 }
 
