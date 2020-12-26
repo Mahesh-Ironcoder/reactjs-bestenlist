@@ -106,7 +106,7 @@ function CreateQuiz() {
 		console.log("Quiz id: ", id);
 		console.log("quizes: ", quizes);
 	}, [id]);
-	const quizResponses = [];
+	let quizResponses = [];
 	const init = () => {
 		if (id === undefined) {
 			id = Date.now();
@@ -124,15 +124,6 @@ function CreateQuiz() {
 		{ title: "", questions: [] },
 		init
 	);
-	// quizes.forEach((element) => {
-	// 	if (element.quizid === parseInt(id)) {
-	// 		initialState = element.questions;
-	// 		initialtitle = element.title;
-	// 	}
-	// });
-	// const [quizQuestions, setQuizQuestions] = useState(initialState);
-	// const [isFinished, setIsFinished] = useState(false);
-	// const [title, setTitle] = useState(initialtitle);
 	const history = useHistory();
 
 	const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
@@ -163,52 +154,7 @@ function CreateQuiz() {
 		}
 	};
 	console.log(state.questions);
-	// console.log(quizQuestions);
-	// return (
-	// 	<div className='create-quiz-container'>
-	// 		{isFinished ? (
-	// 			<>
-	// 				<input
-	// 					type='text'
-	// 					value={title}
-	// 					onChange={(e) => setTitle(e.target.value)}
-	// 				/>
-	// 				<button
-	// 					className='add-quiz-btn'
-	// 					onClick={(e) => {
-	// 						setTitle(title);
-	// 						let tempobj = {
-	// 							quizid: Date.now(),
-	// 							creatorId: user.sub,
-	// 							title: title,
-	// 							questions: quizQuestions,
-	// 							responses: [],
-	// 						};
-	// 						sendResponses(tempobj);
-	// 						history.push("/");
-	// 					}}
-	// 				>
-	// 					Submit
-	// 				</button>
-	// 			</>
-	// 		) : (
-	// 			<>
-	// 				<button
-	// 					className='quiz-finish'
-	// 					onClick={() => {
-	// 						setIsFinished(!isFinished);
-	// 					}}
-	// 				>
-	// 					Finish
-	// 				</button>
-	// 				<AddQuestion
-	// 					addQuestion={setQuizQuestions}
-	// 					quizQuestion={quizQuestions}
-	// 				/>
-	// 			</>
-	// 		)}
-	// 	</div>
-	// );
+
 	console.log("Quiz id: ", id);
 
 	return (

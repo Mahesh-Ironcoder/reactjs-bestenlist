@@ -43,10 +43,10 @@ function Admin(props) {
 					<CreateQuiz />
 				</Route>
 				<Route path={`${path}/:quzid`}>
-					<Quiz url={url} delete={deleteQuiz} />
+					<Quiz url={url} />
 				</Route>
 				<Route path={path}>
-					<Quizes url={url} />
+					<Quizes url={url} delete={deleteQuiz} />
 				</Route>
 			</Switch>
 		</>

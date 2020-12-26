@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 function AddQuestion(props) {
 	// creating states
-	const { questionId } = props;
-	const [question, setQuestion] = useState("");
-	const [choices, setChoices] = useState([""]);
+	const { questionId, quizQuestion } = props;
+	const [question, setQuestion] = useState(quizQuestion.question);
+	const [choices, setChoices] = useState(quizQuestion.choices);
 
 	// handler functions
 	var handleChoiceValue = (e) => {
