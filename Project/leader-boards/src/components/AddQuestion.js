@@ -48,6 +48,20 @@ function AddQuestion(props) {
 			>
 				Add Question
 			</button>
+			<button
+				title='Add question to the quiz stack'
+				className='add-question-btn'
+				onClick={(e) => {
+					props.addQuestion({
+						type: "deleteQuestion",
+						payload: {
+							id: questionId,
+						},
+					});
+				}}
+			>
+				Delete Question
+			</button>
 			<input
 				type='text'
 				value={question}
@@ -79,6 +93,7 @@ function AddQuestion(props) {
 				>
 					Add Choice
 				</button>
+				<p>Correct Answer</p>
 				<select
 					className='crrct-ans'
 					name='correctAnswer'

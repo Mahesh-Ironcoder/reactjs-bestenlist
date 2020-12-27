@@ -55,7 +55,7 @@ function DashBoard(props) {
 			}
 		};
 		callapi();
-	}, [user, getAccessTokenSilently, setIsLoading]);
+	}, []);
 
 	if (isLoading) {
 		return <Loading />;

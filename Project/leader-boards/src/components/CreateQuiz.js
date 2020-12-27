@@ -31,6 +31,7 @@ const reducer = (state, action) => {
 
 	switch (action.type) {
 		case "titleChange":
+			console.log("title change");
 			localTitle = action.payload.event.target.value;
 			return { title: localTitle, questions: localQuestions };
 
@@ -63,12 +64,13 @@ const reducer = (state, action) => {
 				alert("Please add title");
 				return { title: localTitle, questions: localQuestions };
 			}
+			const { id: localId = Date.now(), user, responses } = action.payload;
 			let newQuiz = {
-				quizid: Date.now(),
-				creatorId: action.payload.user.sub,
+				quizid: parseInt(localId),
+				creatorId: user.sub,
 				title: localTitle,
 				questions: localQuestions,
-				responses: action.payload.responses,
+				responses,
 			};
 			fetch("http://localhost:3010/api/create-quiz", {
 				headers: {
@@ -136,7 +138,7 @@ function CreateQuiz() {
 			});
 			dispatch({
 				type: "submit",
-				payload: { token, user, history, responses: quizResponses },
+				payload: { token, user, history, responses: quizResponses, id },
 			});
 		}
 	};
