@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
 import { AppContext } from "../App";
-// import { Link } from "react-router-dom";
 
 function Header(props) {
 	const { authContext } = useContext(AppContext);
@@ -32,16 +30,6 @@ function Header(props) {
 	};
 	const toggleProfilePopup = (e) => {
 		let profilePopup = document.getElementById("profile-popup");
-		console.log(profilePopup);
-		console.log("toggle clicked");
-		console.log(profilePopup.style.display);
-		// if (profilePopup.style.display === "none") {
-		// 	console.log("ele hidden");
-		// 	profilePopup.style.display = "flex";
-		// } else {
-		// 	console.log("ele not hidden");
-		// 	profilePopup.style.display = "none";
-		// }
 		profilePopup.classList.toggle("show-profile-popup");
 	};
 
@@ -70,7 +58,6 @@ function Header(props) {
 				) : (
 					<LoginBtn />
 				)}
-				{/* <Link to='/'> Home page</Link> */}
 			</nav>
 		</header>
 	);

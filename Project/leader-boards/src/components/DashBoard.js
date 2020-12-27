@@ -51,7 +51,7 @@ function DashBoard(props) {
 				console.log("Error from get quizes api: ", error);
 				setQuizes([""]);
 				setIsLoading(false);
-				throw new Error(error);
+				// throw new Error(error);
 			}
 		};
 		callapi();

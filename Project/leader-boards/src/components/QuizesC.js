@@ -25,7 +25,9 @@ function QuizCard(props) {
 			const respData = await resp.json();
 			let tempvar = [...respData["top10"]];
 			setRankings(tempvar);
-			let rankingsDiv = document.getElementById("rankings-container");
+			let rankingsDiv = document.getElementById(
+				`rankings-container-${props.quiz.quizid}`
+			);
 			rankingsDiv.classList.add("show-rankings-container");
 			// setSeeRankings(true);
 		} catch (e) {
@@ -75,11 +77,16 @@ function QuizCard(props) {
 			>
 				Rankings
 			</button>
-			<section className='rankings-container' id='rankings-container'>
+			<section
+				className='rankings-container'
+				id={`rankings-container-${props.quiz.quizid}`}
+			>
 				<div
 					className='rankings-close'
-					onClick={() => {
-						let rankingsDiv = document.getElementById("rankings-container");
+					onClick={(e) => {
+						let rankingsDiv = document.getElementById(
+							`rankings-container-${props.quiz.quizid}`
+						);
 						rankingsDiv.classList.remove("show-rankings-container");
 					}}
 				>
