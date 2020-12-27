@@ -9,7 +9,7 @@ function User(props) {
 	const { path, url } = useRouteMatch();
 	return (
 		<>
-			Welcome user you can see all the quizes alloted to you in here
+			<h3>Welcome you can see all the quizes alloted to you in here</h3>
 			<Switch>
 				<Route path={`${path}/:quzid`}>
 					<Quiz url={url} />

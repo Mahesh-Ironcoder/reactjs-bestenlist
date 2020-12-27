@@ -5,13 +5,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import Auth0ProviderWithHistory from "./auth/Auth0ProviderWithHistory";
+import AppErrorBoundary from "./AppErrorBoundary";
 
 ReactDOM.render(
-	<BrowserRouter>
-		<Auth0ProviderWithHistory>
-			<App />
-		</Auth0ProviderWithHistory>
-	</BrowserRouter>,
+	<AppErrorBoundary>
+		<BrowserRouter>
+			<Auth0ProviderWithHistory>
+				<App />
+			</Auth0ProviderWithHistory>
+		</BrowserRouter>
+	</AppErrorBoundary>,
 	document.getElementById("root")
 );
 

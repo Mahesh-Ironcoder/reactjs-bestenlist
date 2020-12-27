@@ -7,7 +7,7 @@ function Question(props) {
 		e.preventDefault();
 		var choiceNodes = document.getElementsByName("ans" + props.qid);
 		let ans = null;
-		let score = 0
+		let score = 0;
 		for (let i = 0; i < choiceNodes.length; i++) {
 			if (choiceNodes[i].checked) {
 				score = i === parseInt(correctAnswer) ? 1 : 0;
@@ -35,7 +35,9 @@ function Question(props) {
 					);
 				})}
 			</form>
-			<button onClick={handleSubmit}>Save</button>
+			<button title='saves your choice for submission' onClick={handleSubmit}>
+				Save
+			</button>
 		</div>
 	);
 }

@@ -29,7 +29,9 @@ function QuizCard(props) {
 			rankingsDiv.classList.add("show-rankings-container");
 			// setSeeRankings(true);
 		} catch (e) {
+			// setRankings(e.message);
 			console.log("error from get top10 api: ", e);
+			throw new Error(e);
 		}
 	};
 

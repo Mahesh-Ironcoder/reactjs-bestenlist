@@ -14,7 +14,7 @@ function Header(props) {
 					loginWithRedirect();
 				}}
 			>
-				Login
+				Login / Sign up
 			</button>
 		);
 	};

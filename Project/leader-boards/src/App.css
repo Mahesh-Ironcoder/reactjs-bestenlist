@@ -108,11 +108,16 @@ nav > img {
 	width: 100vw;
 	padding: 0.5rem;
 	/* border: 1px solid black; */
-	overflow: hidden;
+	/* overflow: hidden; */
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-content: flex-start;
+	box-sizing: border-box;
 }
 
 .quiz-cards {
-	width: 100%;
+	width: 95%;
 }
 
 /* quizcard > rankings */
@@ -232,10 +237,12 @@ nav > img {
 
 .quiz-card {
 	width: 98%;
+	min-width: 340px;
 	margin: 1rem auto;
 	background-color: lightgray;
 	border-radius: 8px;
 	padding: 0.5rem;
+	box-shadow: -3px 2px 3px 1px gray;
 }
 
 .create-quiz-container {
@@ -291,10 +298,20 @@ nav > img {
 .add-quiz-btn {
 	width: 2rem;
 	height: 2rem;
-	border-radius: 1.5rem;
-	display: inline-block;
-	padding: 0.5rem;
-	font-size: 2rem;
+	border-radius: 1rem;
+	/* display: inline-block; */
+	padding: 0;
+	/* font-size: 0.5rem; */
+}
+
+#link-content {
+	width: inherit;
+	height: inherit;
+	padding: 0.015625rem;
+	margin: 0%;
+	text-align: center;
+	font-size: 1.5rem;
+	font-weight: 400;
 }
 
 .quiz-finish {
@@ -305,7 +322,13 @@ nav > img {
 	color: white;
 	margin: 0.5rem 0rem;
 }
-
+.quiz-title {
+	font-size: 1.5rem;
+	font-weight: 300;
+	border-radius: 0.5rem;
+	padding: 0.25rem;
+	margin-top: 0.25rem;
+}
 .loading-container {
 	width: 100vw;
 	height: 100vh;

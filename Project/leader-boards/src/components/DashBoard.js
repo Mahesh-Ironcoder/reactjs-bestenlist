@@ -49,18 +49,19 @@ function DashBoard(props) {
 				setIsLoading(false);
 			} catch (error) {
 				console.log("Error from get quizes api: ", error);
-				setQuizes(error.message);
+				setQuizes([""]);
 				setIsLoading(false);
+				throw new Error(error);
 			}
 		};
 		callapi();
 	}, [user, getAccessTokenSilently, setIsLoading]);
 
 	if (isLoading) {
-		return <Loading/>
+		return <Loading />;
 	}
 	return (
-		<section className='dashboard'>
+		<div className='dashboard'>
 			<QuizContext.Provider value={{ quizes, role }}>
 				{isAuthenticated ? (
 					role === "admin" ? (
@@ -72,7 +73,7 @@ function DashBoard(props) {
 					<PublicPage />
 				)}
 			</QuizContext.Provider>
-		</section>
+		</div>
 	);
 }
 

@@ -53,11 +53,13 @@ function Quiz(props) {
 
 	let { quzid } = useParams();
 	const { quizes } = useContext(QuizContext);
+	let quizTitle = "";
 	let qtns = [];
 	// const qtns = quizes.filter((quz) => quz.quizid === quzid);
 	for (let i = 0; i < quizes.length; i++) {
 		if (quizes[i].quizid === parseInt(quzid)) {
 			qtns = quizes[i].questions;
+			quizTitle = quizes[i].title;
 		}
 	}
 	console.log(qtns);
@@ -68,10 +70,10 @@ function Quiz(props) {
 	console.log(Date());
 	return (
 		<div className='quiz'>
-			<h1>{quzid}</h1>
+			<h1>{quizTitle}</h1>
 			<h3>Question {currqtn + 1 + "/" + qtns.length}</h3>
 			{currqtn + 1 === qtns.length && (
-				<button className='quiz-submit' onClick={handleSubmit}>
+				<button title='Submit your response with the choices you saved' className='quiz-submit' onClick={handleSubmit}>
 					Submit
 				</button>
 			)}

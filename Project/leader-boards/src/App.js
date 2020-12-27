@@ -10,7 +10,20 @@ import Profile from "./components/Profile";
 import Loading from "./components/Loading";
 
 function PublicPage(props) {
-	return <h1> Hi this is a Public home page</h1>;
+	return (
+		<div className>
+			<h2>Hey There! Welcome to Quizzaholics</h2>
+
+			<p>
+				Login or create an account to compete with your colleuges and friends in
+				quizes that your mentor assigned for{" "}
+			</p>
+			<p>
+				Want to create quizes...sure thing! Login with an administrator account
+				to create or edit your quizes
+			</p>
+		</div>
+	);
 }
 
 export const AppContext = React.createContext();

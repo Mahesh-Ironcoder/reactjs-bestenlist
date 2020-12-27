@@ -31,10 +31,6 @@ function Admin(props) {
 	};
 	return (
 		<>
-			Welcome admin here you can see all your quizes
-			<Link to={`${url}/create-quiz`} className='add-quiz-btn'>
-				+
-			</Link>
 			<Switch>
 				<Route path={`${path}/create-quiz`}>
 					<CreateQuiz />
@@ -46,6 +42,14 @@ function Admin(props) {
 					<Quiz url={url} />
 				</Route>
 				<Route path={path}>
+					<h3>Welcome admin here you can see all your quizes</h3>
+					<Link
+						to={`${url}/create-quiz`}
+						className='add-quiz-btn'
+						title='Create quiz'
+					>
+						<p id='link-content'>+</p>
+					</Link>
 					<Quizes url={url} delete={deleteQuiz} />
 				</Route>
 			</Switch>

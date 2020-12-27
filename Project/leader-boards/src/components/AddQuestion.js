@@ -3,8 +3,12 @@ import React, { useState } from "react";
 function AddQuestion(props) {
 	// creating states
 	const { questionId, quizQuestion } = props;
-	const [question, setQuestion] = useState(quizQuestion.question);
-	const [choices, setChoices] = useState(quizQuestion.choices);
+	const {
+		choices: localChoices = [""],
+		question: localQuestion = "",
+	} = quizQuestion;
+	const [question, setQuestion] = useState(localQuestion);
+	const [choices, setChoices] = useState(localChoices);
 
 	// handler functions
 	var handleChoiceValue = (e) => {
@@ -25,14 +29,23 @@ function AddQuestion(props) {
 		);
 		props.addQuestion({
 			type: "addQuestion",
-			payload: { id:questionId, question, choices, correctAnswer: dropdownValue },
+			payload: {
+				id: questionId,
+				question,
+				choices,
+				correctAnswer: dropdownValue,
+			},
 		});
 	};
 	console.log(choices.length);
 	// returning the component
 	return (
 		<div className='create-quiz'>
-			<button className='add-question-btn' onClick={handleAddQuestion}>
+			<button
+				title='Add question to the quiz stack'
+				className='add-question-btn'
+				onClick={handleAddQuestion}
+			>
 				Add Question
 			</button>
 			<input

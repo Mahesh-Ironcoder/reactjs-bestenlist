@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useReducer } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import AddQuestion from "./AddQuestion";
-// import quizes from "./quizes";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import { QuizContext } from "./DashBoard";
@@ -29,10 +28,12 @@ const dummyQuestion = {
 
 const reducer = (state, action) => {
 	let { title: localTitle = "", questions: localQuestions = [] } = state;
+
 	switch (action.type) {
 		case "titleChange":
 			localTitle = action.payload.event.target.value;
 			return { title: localTitle, questions: localQuestions };
+
 		case "addQuestion":
 			// let  = localQuestions.length + 1;
 			console.log("addQuestion");
@@ -48,18 +49,14 @@ const reducer = (state, action) => {
 				choices,
 				correctAnswer,
 			});
-			// localQuestions.push({
-			// 	questionId: `_${localQuestions.length + 1}`,
-			// 	question: "",
-			// 	choices: [],
-			// 	correctAnswer: -1,
-			// });
 			return { title: localTitle, questions: localQuestions };
+
 		case "deleteQuestion":
 			localQuestions = localQuestions.filter(
 				(question) => question.questionId !== action.payload.id
 			);
 			return { title: localTitle, questions: localQuestions };
+
 		case "submit":
 			console.log("submitted");
 			if (localTitle === "") {
@@ -91,6 +88,7 @@ const reducer = (state, action) => {
 				});
 			action.payload.history.push("/dashboard");
 			return { title: localTitle, questions: localQuestions };
+
 		default:
 			console.log("nothing was asked from the reducer");
 			return { title: localTitle, questions: localQuestions };
@@ -101,11 +99,9 @@ function CreateQuiz() {
 	// let initialState = [];
 	// let initialtitle = "";
 	let { id } = useParams();
+
 	const { quizes } = useContext(QuizContext);
-	useEffect(() => {
-		console.log("Quiz id: ", id);
-		console.log("quizes: ", quizes);
-	}, [id]);
+
 	let quizResponses = [];
 	const init = () => {
 		if (id === undefined) {
@@ -115,17 +111,22 @@ function CreateQuiz() {
 				questions: [dummyQuestion],
 			};
 		}
-		const editable = quizes.filter((quiz) => quiz.quizid === parseInt(id));
+		console.log("from init func: ", quizes);
+		const editable = quizes.filter(
+			(quiz) => parseInt(quiz.quizid) === parseInt(id)
+		);
+		console.log("editable", editable);
 		quizResponses = editable.responses;
-		return { title: editable.title, questions: editable.questions };
+		console.log("editable.title", editable[0].title);
+		console.log("editable.questions", editable[0].questions);
+		return { title: editable[0].title, questions: editable[0].questions };
 	};
-	const [state, dispatch] = useReducer(
-		reducer,
-		{ title: "", questions: [] },
-		init
-	);
-	const history = useHistory();
 
+	const initialState = init();
+
+	const [quizState, dispatch] = useReducer(reducer, initialState);
+
+	const history = useHistory();
 	const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
 
 	const sendResponses = async (obj) => {
@@ -133,40 +134,25 @@ function CreateQuiz() {
 			let token = await getAccessTokenSilently({
 				scope: "read:demo",
 			});
-			// try {
-			// 	var resp = await fetch("http://localhost:3010/api/create-quiz", {
-			// 		headers: {
-			// 			"content-type": "application/json",
-			// 			Authorization: `Bearer ${token}`,
-			// 		},
-			// 		body: JSON.stringify(obj),
-			// 		method: ["POST"],
-			// 	});
-			// 	let respData = await resp.json();
-			// 	console.log("Create quiz response: ", respData);
-			// } catch (e) {
-			// 	console.log("error from create quiz api: ", e);
-			// }
 			dispatch({
 				type: "submit",
 				payload: { token, user, history, responses: quizResponses },
 			});
 		}
 	};
-	console.log(state.questions);
-
-	console.log("Quiz id: ", id);
 
 	return (
 		<div>
 			<input
+				className='quiz-title'
 				type='text'
-				value={state.title}
+				placeholder='Title'
+				value={quizState.title}
 				onChange={(e) => {
 					dispatch({ type: "titleChange", payload: { event: e } });
 				}}
 			/>
-			{state.questions.map((question, index) => {
+			{quizState.questions.map((question, index) => {
 				return (
 					<div key={index} className='question-container'>
 						<AddQuestion
@@ -178,16 +164,22 @@ function CreateQuiz() {
 				);
 			})}
 			<button
+				title='Adds an empty question'
 				onClick={(e) => {
 					dispatch({
 						type: "addQuestion",
-						payload: { id: `_${state.questions.length + 1}` },
+						payload: { id: `_${quizState.questions.length + 1}` },
 					});
 				}}
 			>
 				+
 			</button>
-			<button onClick={sendResponses}>Submit</button>
+			<button
+				onClick={sendResponses}
+				title='Create Quiz with given title and questions'
+			>
+				Submit
+			</button>
 		</div>
 	);
 }
