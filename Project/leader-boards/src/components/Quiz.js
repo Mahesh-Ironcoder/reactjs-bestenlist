@@ -1,39 +1,81 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import { AppContext } from "../App";
+import { QuizContext } from "./DashBoard";
+
 import Question from "./Question";
-import { useParams} from 'react-router-dom'
 
 function Quiz(props) {
-	const [answer, setAnswer] = useState({});
+	const [answer, setAnswer] = useState([]);
 	const [currqtn, setCurrqtn] = useState(0);
-
-	const handleAnswer = (qid, ans) => {
-		setAnswer({ ...answer, [qid]: ans });
-		if (currqtn + 1 < props.qtns.length) setCurrqtn(currqtn + 1);
+	const { authContext } = useContext(AppContext);
+	const { getAccessTokenSilently, user } = authContext;
+	const history = useHistory();
+	const handleAnswer = (ans, score) => {
+		setAnswer([...answer, { ans: ans, qtnScore: score }]);
+		if (currqtn + 1 < qtns.length) setCurrqtn(currqtn + 1);
 	};
-
-	const handleSubmit = () => {
+	console.log("answer", answer);
+	const handleSubmit = async () => {
 		console.log("Quiz submitted", answer);
+		let score = 0;
+		for (let i = 0; i < answer.length; i++) {
+			score += answer[i].qtnScore;
+		}
+		console.log("score", score);
+		let userResp = {
+			quizid: quzid,
+			userName: user.name,
+			userResponse: answer,
+			score: score,
+		};
+		console.log(userResp);
+		try {
+			const token = await getAccessTokenSilently({
+				permissions: "read:user",
+			});
+			console.log(token);
+			let resp = await fetch("http://localhost:3010/api/add-quiz-response", {
+				headers: {
+					"content-type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify(userResp),
+				method: ["POST"],
+			});
+			let respData = await resp.json();
+			console.log("add quiz resp: ", respData);
+			history.push("/dashboard");
+		} catch (e) {
+			console.log("error from add quiz resp api: ", e);
+		}
 	};
 
-	const qtcomp = props.qtns.map((qtn, id) => {
-		return (
-			<Question
-				key={id}
-				qid={id}
-				question={qtn.question}
-				choices={qtn.choices}
-				onAnswered={handleAnswer}
-			/>
-		);
+	let { quzid } = useParams();
+	const { quizes } = useContext(QuizContext);
+	let quizTitle = "";
+	let qtns = [];
+	// const qtns = quizes.filter((quz) => quz.quizid === quzid);
+	for (let i = 0; i < quizes.length; i++) {
+		if (quizes[i].quizid === parseInt(quzid)) {
+			qtns = quizes[i].questions;
+			quizTitle = quizes[i].title;
+		}
+	}
+	console.log(qtns);
+
+	const qtcomp = qtns.map((qtn, id) => {
+		return <Question key={id} qid={id} qtn={qtn} onAnswered={handleAnswer} />;
 	});
-	const { quizid } = useParams();
-	console.log(Date())
+	console.log(Date());
 	return (
 		<div className='quiz'>
-			<h1>{quizid}</h1>
-			<h3>Question {(currqtn+1)+"/"+props.qtns.length}</h3>
-			{currqtn + 1 === props.qtns.length && (
-				<button className="quiz-submit"onClick={handleSubmit}>Submit</button>
+			<h1>{quizTitle}</h1>
+			<h3>Question {currqtn + 1 + "/" + qtns.length}</h3>
+			{currqtn + 1 === qtns.length && (
+				<button title='Submit your response with the choices you saved' className='quiz-submit' onClick={handleSubmit}>
+					Submit
+				</button>
 			)}
 			{qtcomp[currqtn]}
 		</div>

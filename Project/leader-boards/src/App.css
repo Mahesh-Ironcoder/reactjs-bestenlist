@@ -1,4 +1,165 @@
-/* quiz section */
+/* universal */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	/* border: 1px solid black; */
+}
+
+a,
+button {
+	text-decoration: none;
+	background-color: #543d56;
+
+	width: fit-content;
+	height: fit-content;
+	padding: 0.5rem;
+	margin: 0.25rem;
+
+	border-radius: 0.5rem;
+	border-style: none;
+	border: none;
+
+	color: white;
+	font: inherit;
+	font-size: 1rem;
+}
+
+/* Header */
+.app-header {
+	width: 100vw;
+
+	/* border: 1px solid black; */
+	padding: 0.5rem;
+}
+
+/* header > Title */
+.webpage-title {
+	margin-right: auto;
+	font-size: 3rem;
+	font-weight: bolder;
+}
+
+/* header > navbar */
+nav {
+	/* border: 1px solid black; */
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-items: right;
+}
+
+nav button {
+	width: fit-content;
+	padding: 0.5rem;
+	text-decoration: none;
+	background-color: #543d56;
+	margin: 0.25rem;
+	order: 1;
+}
+
+nav > img {
+	width: 3rem;
+	height: 3rem;
+	border-radius: 1.5rem;
+	margin: 0.25rem;
+}
+
+/* header > profile popup */
+.profile-popup {
+	display: none;
+}
+
+.show-profile-popup {
+	width: 30%;
+	min-width: 300px;
+	position: fixed;
+	top: 4.5rem;
+	right: 1.5rem;
+	color: white;
+	background: rgb(245, 243, 243);
+	margin: 0px;
+	padding: 0px;
+	z-index: 999;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+
+	box-shadow: -5px 5px 4.5px rgb(0 0 0 / 50%);
+}
+
+.profile-popup p {
+	margin: 0.25rem;
+}
+.profile-content {
+	width: 100%;
+	height: 90%;
+	background-color: #543d56;
+}
+
+.logout-btn {
+	background-color: rgb(250, 83, 83);
+	align-self: flex-end;
+}
+
+/* dashboard */
+.dashboard {
+	width: 100vw;
+	padding: 0.5rem;
+	/* border: 1px solid black; */
+	/* overflow: hidden; */
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-content: flex-start;
+	box-sizing: border-box;
+}
+
+.quiz-cards {
+	width: 95%;
+}
+
+/* quizcard > rankings */
+.rankings-container {
+	display: none;
+}
+
+.show-rankings-container {
+	display: grid;
+	grid-template-columns: 1fr 3fr 2fr;
+	row-gap: 5px;
+	border: 1px solid black;
+	padding: 0.2rem;
+}
+
+.posH {
+	grid-column: 1 / 2;
+	background-color: aliceblue;
+	text-align: center;
+	border-top-left-radius: 0.25rem;
+	border-bottom-left-radius: 0.25rem;
+}
+
+.nameH {
+	grid-column: 2 / 3;
+	background-color: aliceblue;
+}
+
+.scoreH {
+	grid-column: 3 / 4;
+	background-color: aliceblue;
+	text-align: center;
+	border-top-right-radius: 0.25rem;
+	border-bottom-right-radius: 0.25rem;
+}
+
+.rankings-close {
+	color: red;
+	background-color: lightgray;
+	font-weight: 900;
+}
+
 .quiz {
 	width: 97vw;
 	margin: 2vw;
@@ -14,11 +175,14 @@
 	font-size: 1rem;
 }
 
+.question-container {
+	margin: 1rem 0px;
+}
+
 .quiz h3 {
 	color: #1d3552;
 }
-
-/* .Question Display section */
+/* .qstn-wrapper section */
 .qstn-wrapper {
 	width: 98%;
 	height: fit-content;
@@ -41,7 +205,7 @@
 }
 
 .qstn-wrapper button {
-	background-color: #543d56;
+	background-color: #0378f5;
 	border-radius: 1rem;
 	border-style: none;
 	border: none;
@@ -69,65 +233,26 @@
 	background-color: rgb(177, 175, 174);
 }
 
-/* dashboard section */
-.dashboard {
-	width: 60%;
-	position: relative;
-	top: 10vh;
-	left: 20vw;
-	display: flex;
-	flex-direction: column;
-}
+/* user dashboard */
 
 .quiz-card {
 	width: 98%;
+	min-width: 340px;
 	margin: 1rem auto;
 	background-color: lightgray;
 	border-radius: 8px;
 	padding: 0.5rem;
+	box-shadow: -3px 2px 3px 1px gray;
 }
 
-/* Heading Section of the page */
-.app-header {
-	padding: 0.5rem;
+.create-quiz-container {
+	width: 80%;
 	display: flex;
+	flex-direction: column;
+	margin: auto;
+	max-width: 768px;
 }
-.heading {
-	height: fit-content;
-	font-size: 2rem;
-	font-weight: bold;
-	display: inline;
-	margin-right: auto;
-}
-
-.navbar ul {
-	display: inline-flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	margin: 0px;
-}
-
-.navbar ul li {
-	list-style-type: none;
-	margin: 0.5rem;
-	font-size: 1.2rem;
-}
-a {
-	text-decoration: none;
-	background-color: #543d56;
-	border-radius: 8px;
-	border-style: none;
-	border: none;
-	padding: 5px 20px;
-	color: white;
-}
-
-/* quiz creating section */
 .create-quiz {
-	width: 60%;
-	position: relative;
-	top: 10vh;
-	left: 20vw;
 	display: flex;
 	flex-direction: column;
 	background-color: #89817e;
@@ -145,21 +270,6 @@ a {
 	background-color: lightgray;
 }
 
-.add-quiz-btn {
-	width: 2rem;
-	height: 2rem;
-	border-radius: 1.5rem;
-	display: inline-block;
-	padding: 0.5rem;
-	font-size: 2rem;
-}
-
-.add-choice {
-	align-self: flex-start;
-	border-radius: 50px 50px;
-	margin: 0.2rem 0.5rem;
-}
-
 .ch-container {
 	display: flex;
 	flex-direction: column;
@@ -172,27 +282,6 @@ a {
 	width: 90%;
 }
 
-.option {
-	height: 0.5rem;
-	width: 0.51rem;
-	background-color: rgb(255, 255, 255, 0.5);
-	border-radius: 50%;
-	border: 1px solid black;
-	display: inline-block;
-	margin: auto 1px;
-}
-
-.qtnoption::before {
-	content: "";
-	height: 0.5rem;
-	width: 0.51rem;
-	background-color: rgb(255, 255, 255, 0.5);
-	border-radius: 50%;
-	border: 1px solid black;
-	display: inline-block;
-	margin: auto 1px;
-}
-
 .add-question-btn {
 	align-self: flex-start;
 	border-radius: 0.5rem;
@@ -200,3 +289,86 @@ a {
 	color: white;
 	margin: 0.5rem 0rem;
 }
+.add-choice {
+	align-self: flex-start;
+	border-radius: 50px 50px;
+	margin: 0.2rem 0.5rem;
+}
+
+.add-quiz-btn {
+	width: 2rem;
+	height: 2rem;
+	border-radius: 1rem;
+	/* display: inline-block; */
+	padding: 0;
+	/* font-size: 0.5rem; */
+}
+
+#link-content {
+	width: inherit;
+	height: inherit;
+	padding: 0.015625rem;
+	margin: 0%;
+	text-align: center;
+	font-size: 1.5rem;
+	font-weight: 400;
+}
+
+.quiz-finish {
+	width: 20%;
+	align-self: flex-start;
+	border-radius: 0.5rem;
+	background-color: #543d56;
+	color: white;
+	margin: 0.5rem 0rem;
+}
+.quiz-title {
+	font-size: 1.5rem;
+	font-weight: 300;
+	border-radius: 0.5rem;
+	padding: 0.25rem;
+	margin-top: 0.25rem;
+}
+.loading-container {
+	width: 100vw;
+	height: 100vh;
+	border: 1px solid black;
+	margin: auto;
+	background: lightcyan;
+	opacity: 0.5;
+	display: grid;
+	place-items: center;
+	overflow: hidden;
+}
+
+.loading-container span {
+	border: 5px solid;
+	border-radius: 29px;
+	width: 53px;
+	height: 53px;
+	border-top: red;
+	border-bottom: red;
+	animation: load 1s linear infinite;
+}
+
+@keyframes load {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+/* .profile-link {
+	width: 3rem;
+	height: 3rem;
+	border-radius: 1.5rem;
+	margin: 0px;
+	padding: 0px;
+}
+
+.profile-link img {
+	width: 3rem;
+	height: 3rem;
+	border-radius: 1.5rem;
+} */

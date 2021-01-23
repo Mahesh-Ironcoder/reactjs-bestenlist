@@ -2,21 +2,26 @@ import React from "react";
 
 function Question(props) {
 	/*Handles the submit action*/
+	const { question, choices, correctAnswer } = props.qtn;
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		var ans = document.getElementsByName("ans" + props.qid);
-		for (let i = 0; i < ans.length; i++) {
-			if (ans[i].checked) {
-				props.onAnswered(props.qid, ans[i].value);
+		var choiceNodes = document.getElementsByName("ans" + props.qid);
+		let ans = null;
+		let score = 0;
+		for (let i = 0; i < choiceNodes.length; i++) {
+			if (choiceNodes[i].checked) {
+				score = i === parseInt(correctAnswer) ? 1 : 0;
+				ans = choiceNodes[i].value;
 			}
 		}
+		props.onAnswered(ans, score);
 	};
 
 	return (
 		<div className='qstn-wrapper'>
-			<section className='qstn'>{props.question}</section>
+			<section className='qstn'>{question}</section>
 			<form>
-				{props.choices.map((ch, id) => {
+				{choices.map((ch, id) => {
 					return (
 						<section className='choice' key={id}>
 							<input
@@ -30,7 +35,9 @@ function Question(props) {
 					);
 				})}
 			</form>
-			<button onClick={handleSubmit}>Save</button>
+			<button title='saves your choice for submission' onClick={handleSubmit}>
+				Save
+			</button>
 		</div>
 	);
 }

@@ -1,89 +1,53 @@
-// CSS file
 import "./App.css";
+import React from "react";
 
-//React Components
-import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Header from "./components/Header";
+import DashBoard from "./components/DashBoard";
 
 import { useAuth0 } from "@auth0/auth0-react";
-
-// My components
-import UserDashboard from "./components/UserDashboard";
-import AdminDashboard from "./components/AdminDashboard";
-import Header from "./components/Header";
-import Auth0ProviderWithHistory from "./auth/AuthWithHistory";
+import { Route, Switch } from "react-router-dom";
+import Loading from "./components/Loading";
 
 function PublicPage(props) {
-	const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
-	const [userMetadata, setUserMetadata] = useState(null);
-
-	useEffect(() => {
-		const getUserMetadata = async () => {
-			const domain = "dev-mahesh0205.us.auth0.com";
-
-			try {
-				const accessToken = await getAccessTokenSilently({
-					audience: `https://${domain}/api/v2/`,
-					scope: "read:current_user",
-				});
-
-				const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
-
-				const metadataResponse = await fetch(userDetailsByIdUrl, {
-					headers: {
-						Authorization: `Bearer ${accessToken}`,
-					},
-				});
-
-				const { user_metadata } = await metadataResponse.json();
-
-				setUserMetadata(user_metadata);
-			} catch (e) {
-				console.log(e.message);
-			}
-		};
-
-		getUserMetadata();
-	}, [user]);
-
 	return (
-		isAuthenticated && (
-			<div>
-				<img src={user.picture} alt={user.name} />
-				<h2>{user.name}</h2>
-				<p>{user.email}</p>
-				<h3>User Metadata</h3>
-				{userMetadata ? (
-					<pre>{JSON.stringify(userMetadata, null, 2)}</pre>
-				) : (
-					"No user metadata defined"
-				)}
-			</div>
-		)
+		<div className>
+			<h2>Hey There! Welcome to Quizzaholics</h2>
+
+			<p>
+				Login or create an account to compete with your colleuges and friends in
+				quizes that your mentor assigned for{" "}
+			</p>
+			<p>
+				Want to create quizes...sure thing! Login with an administrator account
+				to create or edit your quizes
+			</p>
+		</div>
 	);
 }
 
+export const AppContext = React.createContext();
+
 function App() {
+	const authContext = useAuth0();
+	if (authContext.isLoading) {
+		return <Loading />;
+	}
 	return (
-		<Router>
-			<Auth0ProviderWithHistory>
-				<Header />
+		<AppContext.Provider value={{ authContext }}>
+			<div className='app-container'>
+				<Header authContext={authContext} />
 				<Switch>
-					<Route path='/user'>
-						<UserDashboard />
-					</Route>
-					<Route path='/admin'>
-						<AdminDashboard />
+					<Route path='/dashboard'>
+						<DashBoard />
 					</Route>
 					<Route path='/'>
 						<PublicPage />
 					</Route>
-					<Route path='*'>
-						<h1>404 Page not found</h1>
-					</Route>
 				</Switch>
-			</Auth0ProviderWithHistory>
-		</Router>
+				{/* {authContext. */}
+			</div>
+		</AppContext.Provider>
+		// <Loading />
 	);
 }
 

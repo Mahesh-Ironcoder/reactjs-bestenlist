@@ -2,13 +2,19 @@ import React, { useState } from "react";
 
 function AddQuestion(props) {
 	// creating states
-	const [question, setQuestion] = useState("");
-	const [choices, setChoices] = useState([""]);
+	const { questionId, quizQuestion } = props;
+	const {
+		choices: localChoices = [""],
+		question: localQuestion = "",
+	} = quizQuestion;
+	const [question, setQuestion] = useState(localQuestion);
+	const [choices, setChoices] = useState(localChoices);
 
 	// handler functions
 	var handleChoiceValue = (e) => {
 		var tempstate = choices.slice();
-		tempstate[e.target.id] = e.target.value;
+
+		tempstate[e.target.id.split("_ch_")[1]] = e.target.value;
 		setChoices(tempstate);
 	};
 	var handleQuestionValue = (e) => {
@@ -18,19 +24,43 @@ function AddQuestion(props) {
 	};
 
 	var handleAddQuestion = (e) => {
-		props.addQuestion([
-			...props.quizQuestion,
-			{ question: question, choices: choices },
-		]);
-		setQuestion("");
-		setChoices([""]);
+		let dropdownValue = parseInt(
+			document.getElementById(`${questionId}_ans`).value
+		);
+		props.addQuestion({
+			type: "addQuestion",
+			payload: {
+				id: questionId,
+				question,
+				choices,
+				correctAnswer: dropdownValue,
+			},
+		});
 	};
-
+	console.log(choices.length);
 	// returning the component
 	return (
 		<div className='create-quiz'>
-			<button className='add-question-btn' onClick={handleAddQuestion}>
+			<button
+				title='Add question to the quiz stack'
+				className='add-question-btn'
+				onClick={handleAddQuestion}
+			>
 				Add Question
+			</button>
+			<button
+				title='Add question to the quiz stack'
+				className='add-question-btn'
+				onClick={(e) => {
+					props.addQuestion({
+						type: "deleteQuestion",
+						payload: {
+							id: questionId,
+						},
+					});
+				}}
+			>
+				Delete Question
 			</button>
 			<input
 				type='text'
@@ -43,7 +73,7 @@ function AddQuestion(props) {
 					return (
 						<input
 							key={id}
-							id={id}
+							id={props.questionId + "_ch_" + id}
 							type='text'
 							value={ch}
 							onChange={handleChoiceValue}
@@ -63,6 +93,20 @@ function AddQuestion(props) {
 				>
 					Add Choice
 				</button>
+				<p>Correct Answer</p>
+				<select
+					className='crrct-ans'
+					name='correctAnswer'
+					id={`${questionId}_ans`}
+				>
+					{choices.map((ch, id) => {
+						return (
+							<option key={id} value={id}>
+								{ch}
+							</option>
+						);
+					})}
+				</select>
 			</section>
 		</div>
 	);
